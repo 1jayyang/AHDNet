@@ -34,7 +34,7 @@ dataset_list = ['3', '4', '5', '6']
 # network_list = ['resnet50', 'resnet101', 'resnet152','mobile_vit_small', 'mobile_vit_x_small', 'mobile_vit_xx_small', 'vit_base_patch16_224', 'vit_base_patch32_224', 'vit_large_patch16_224', 'vit_large_patch32_224_in21k', 'vit_huge_patch14_224_in21k']
 network_list = ['resnet34']
 
-base_dataset_dir = "/"  # 替换为实际路径
+base_dataset_dir = "/"  
 base_save_path = "/"
 
 if not deterministic:
@@ -70,22 +70,20 @@ for network in network_list:
         with open(log_file, "w") as file:
             file.write("Epoch\tLoss\tRecall0\tRecall1\tF1\n")
 
-        # 代码存储
         if os.path.exists(save_path + '/my_code'):
             shutil.rmtree(save_path + '/my_code')
         shutil.copytree('.', save_path + '/my_code',
                         shutil.ignore_patterns(['.git', '__pycache__']))
 
-        # 加载训练集
         train_dir = os.path.join(data_dir, "train")
         train_dataset = ImageFolder(root=train_dir, transform=transform)
-        # 获取类别索引
+        
         folder_12_indices = [i for i, (_, label) in enumerate(train_dataset.samples) if label == 1]
         folder_0_indices = [i for i, (_, label) in enumerate(train_dataset.samples) if label == 0]
-        # 自定义数据采样逻辑
+        
         batch_sampler = BalancedBatchSampler_new_seed(folder_0_indices, folder_12_indices, batch_size, random_seed)
         train_loader = DataLoader(train_dataset, batch_sampler=batch_sampler, num_workers=1, pin_memory=True)
-        # "验证集数据加载"
+        
         val_dir = os.path.join(data_dir, "val")
         val_dataset = ImageFolder(root=val_dir, transform=transform)
         val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
@@ -121,7 +119,7 @@ for network in network_list:
         criterion = CrossEntropyLoss()
         optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
-        # 训练过程
+        
         itr = 0
         best_performance = 0
         best_val_auc = 0
@@ -228,6 +226,7 @@ for network in network_list:
                     torch.save(model.state_dict(), save_best)
 
                 model.train()
+
 
 
 
