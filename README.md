@@ -53,7 +53,7 @@ This online tool is designed as a **portable AI-assisted diagnostic system**, ma
 Install dependencies via:
 
 ```bash
-pip install -r requirements.txt
+pip install -r environment.yml
 ```
 
 ---
