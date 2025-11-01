@@ -63,3 +63,7 @@ pip install -r environment.yml
 This repository is released for **research and educational purposes only**.
 It is intended solely to explore the applications of artificial intelligence in medical facial analysis and **should not be used for clinical diagnosis** without proper validation and regulatory approval.
 
+
+## 📬 Contact
+For questions, collaboration, or further discussion, please reach out to:  
+**jianligao4@gmail.com**
