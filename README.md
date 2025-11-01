@@ -31,8 +31,6 @@ To perform inference with a trained model, execute:
 python predict.py
 ```
 
-This script loads the trained weights and outputs the diagnosis result for the given image(s).
-
 ---
 
 ## 🌐 Online Demo
